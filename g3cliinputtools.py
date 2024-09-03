@@ -30,10 +30,35 @@ def get_box_names():
     while True:
         try:
             box_name = list(input("Enter a box name: "))
-            for chr_index in enumerate(box_name):
-                # Replace regular space with full-width space
-                if chr_index[1] == " ":
-                    box_name[chr_index[0]] = "　"
+            for i in range(len(box_name)):
+                # Replace chars with Japanese equivalent
+                match box_name[i]:
+                    case ' ':
+                        box_name[i] = '　'
+                    case '!':
+                        box_name[i] = '！'
+                    case '?':
+                        box_name[i] = '？'
+                    case '/':
+                        box_name[i] = '／'
+                    case '…':
+                        box_name[i] = '‥'
+                    case '-':
+                        box_name[i] = 'ー'
+                    case '–':
+                        box_name[i] = 'ー'
+                    case '.':
+                        box_name[i] = '。'
+                    case '“':
+                        # Support for straight quotes will never be added as 
+                        # trying to guess the context will be too hard
+                        box_name[i] = '『'
+                    case '”':
+                        box_name[i] = '』'
+                    case '‘':
+                        box_name[i] = '「'
+                    case '’':
+                        box_name[i] = '」'
             if not(len(box_name) > 8):
                 # Ensures that each box name ends with an 0xFF terminator
                 while len(box_name) < 9:
